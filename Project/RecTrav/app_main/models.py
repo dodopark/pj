@@ -8,10 +8,20 @@ class Register(models.Model):
         ('approved','Approved'),
         ('banned','Banned'),
     ]
-
+    username = models.CharField(max_length=60,default= 'NULL')
     name = models.CharField(max_length=60)
     surname = models.CharField(max_length=60)
     address = models.CharField(max_length=60)
     email = models.EmailField(max_length=60, unique=True)
     password = models.CharField(max_length=20)
     status = models.CharField(max_length=15, choices=STATUS, default='unapproved')
+
+class Place(models.Model):
+    p_name = models.CharField(max_length=60)
+    p_address = models.CharField(max_length=60)
+    p_province = models.CharField(max_length=60)
+    p_district = models.CharField(max_length=60)
+    p_subdistrict = models.CharField(max_length=60)
+    p_postnumber = models.CharField(max_length=60)
+    p_image = models.CharField(max_length=50, null=True, blank=True)
+

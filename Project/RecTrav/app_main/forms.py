@@ -1,8 +1,20 @@
+from dataclasses import field
 from django import forms
+from app_main.models import Register, Place
 
-class RegisterForm(forms.Form):
-    name = forms.CharField(max_length=60, required=True, label='Name')
-    surname = forms.CharField(max_length=60, required=True, label='Surname')
-    address = forms.CharField(max_length=60, required=True, label='Address')
-    email = forms.EmailField(max_length=60, required=True, label='Email')
-    password = forms.CharField(max_length=60, required=True, label='Password')
+
+
+class RegisterModelForm(forms.ModelForm):
+    class Meta:
+        model = Register 
+        
+        fields = ['username', 'name', 'surname', 'email', 'address', 'password']
+        lebels = {
+            'Username' : 'ชื่อผู้ใช้',
+            'Name': 'ชื่อ',
+            'Surname': 'นามสกุล',
+            'Address': 'ที่อยู่',
+            'Email': 'อีเมล',
+            'Password': 'รหัสผ่าน'
+        }    
+
