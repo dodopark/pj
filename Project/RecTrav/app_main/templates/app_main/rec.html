@@ -43,39 +43,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     </div>
     <div>
         <h1>
-            This is Register Page
+            This is Recommendation page 
         </h1>
     </div>
-<body>
-    
-    <form action="{% url 'register' %}" method="post" >
-        {% csrf_token %}
-        <div style="margin-bottom: 16px;">
-            {{ form.username.label_tag }}
-            {{ form.username }}
-        </div>
-
-        <div style="margin-bottom: 16px;">
-            {{ form.name.label_tag }}
-            {{ form.name }}
-        </div>
-        <div style="margin-bottom: 16px;">
-            {{ form.surname.label_tag }}
-            {{ form.surname }}
-        </div>
-        <div style="margin-bottom: 16px;">
-            {{ form.address.label_tag }}
-            {{ form.address }}
-        </div>
-        <div style="margin-bottom: 16px;">
-            {{ form.email.label_tag }}
-            {{ form.email }}
-        </div>
-        <div style="margin-bottom: 16px;">
-            {{ form.password.label_tag }}
-            {{ form.password }}
-        </div>
-       <button type="submit">Enter</button>
-    </form>
-</body>
-</html>
+    <div>
+        <h2>
+            *To use this function user must be logging in FIRST*
+        </h2>
+    </div>
