@@ -1,14 +1,20 @@
 from dataclasses import field
 from django import forms
 from app_main.models import Register, Place
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
 
 
 
-class RegisterModelForm(forms.ModelForm):
+class RegisterModelForm(UserCreationForm):
+    email = forms.EmailField()
+    first_name = forms.CharField(max_length=50)
+    last_name = forms.CharField(max_length=50)
+    address = forms.CharField(max_length=50)
+
     class Meta:
-        model = Register 
-        
-        fields = ['username', 'name', 'surname', 'email', 'address', 'password']
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'address', 'password1', 'password2']
         lebels = {
             'Username' : 'ชื่อผู้ใช้',
             'Name': 'ชื่อ',

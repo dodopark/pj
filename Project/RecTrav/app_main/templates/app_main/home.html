@@ -36,8 +36,29 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   
   <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top"><a href="{% url 'places' %}">เริ่มดูสถานที่</a></button>
 </header>
-
-
+ {% if user.is_authenticated %}
+  hi {{ user.username }}
+  <a href="/logout_user" >Logout</a>
+ {% else %} 
+  <a href="/login_user">Login</a>
+  <a href="/register">Register</a>
+ {% endif %}
+ {% load static %}
+    {% for place in places %}
+    <div><h2>
+        <a href="{% url 'place' place.id %}">{{place.p_name}}</a></h2>
+    </div>
+    <div>
+        <img src="{% static place.p_image %}">
+    </div>
+    {% endfor %}
+    <div>
+      <h1>
+      
+      </h1>
+    </div>
+ 
+ 
 
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">  

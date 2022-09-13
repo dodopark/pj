@@ -24,4 +24,9 @@ class Place(models.Model):
     p_subdistrict = models.CharField(max_length=60)
     p_postnumber = models.CharField(max_length=60)
     p_image = models.CharField(max_length=50, null=True, blank=True)
+    p_satisfaction = models.IntegerField(null=True)
+    p_access = models.IntegerField(null=True)
+    p_crownded = models.IntegerField(null=True)
+    p_landscape = models.IntegerField(null=True)
+    p_spacial =  models.IntegerField(null=True)
 

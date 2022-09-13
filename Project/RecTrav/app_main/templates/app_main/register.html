@@ -50,7 +50,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     
     <form action="{% url 'register' %}" method="post" >
         {% csrf_token %}
-        <div style="margin-bottom: 16px;">
+        {% for field in form %}
+        <p>
+            {{ field.lebel_tag }}
+            {{ field }}
+            {% for error in field.error %}
+             <p style="color: red ;">{{ error }}</p>
+            {% endfor %} 
+        </p>
+        {% endfor %} 
+      <!--  <div style="margin-bottom: 16px;">
             {{ form.username.label_tag }}
             {{ form.username }}
         </div>
@@ -74,7 +83,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         <div style="margin-bottom: 16px;">
             {{ form.password.label_tag }}
             {{ form.password }}
-        </div>
+        </div> -->
        <button type="submit">Enter</button>
     </form>
 </body>
