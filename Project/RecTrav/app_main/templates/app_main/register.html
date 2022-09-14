@@ -52,7 +52,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         {% csrf_token %}
         {% for field in form %}
         <p>
-            {{ field.lebel_tag }}
+            {{ field.label_tag }}
             {{ field }}
             {% for error in field.error %}
              <p style="color: red ;">{{ error }}</p>

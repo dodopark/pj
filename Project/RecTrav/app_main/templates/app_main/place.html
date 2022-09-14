@@ -42,15 +42,45 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         </h1>
     </div>
     <div>
-        <h1>
-            นี่คือข้อมูลสถานที่ 
-        </h1>
+        
+        {% load static %}
+      
+        <div><h1>
+            <a href="{% url 'place' place.id %}">{{place.p_name}}</a></h1>
+        </div>
+        <div>
+            <img src="{% static place.p_image %}">
+        </div>
+        
+
     </div>
+    <h4>
+        <form method="post" action = "">
+            <div class="slidecontainer">
+                <h4>Satisfaction</h4>
+                <input type="range" min="1" max="5" value="1" class="slider" id="Range">
+            </div>
+            <div class="slidecontainer">
+                <h4>Access</h4>
+                <input type="range" min="1" max="5" value="1" class="slider" id="Range">
+            </div>
+            <div class="slidecontainer">
+             <h4>Non-crownded</h4>
+                <input type="range" min="1" max="5" value="1" class="slider" id="Range">
+            </div>
+            <div class="slidecontainer">
+                <h4>Landscape</h4>
+                <input type="range" min="1" max="5" value="1" class="slider" id="Range">
+            </div>
+            <div class="slidecontainer">
+             <h4>Accessibility for those with special need</h4>
+             <input type="range" min="1" max="5" value="1" class="slider" id="Range">
+            </div>
+            <button type="submit">Enter</button>
+        </form>
+    </h4>
 <body>
-    {% load static %}
-    <h1>Place</h1>
-    <a href="{% url 'home' %}">Main Menu</a>
-    
+  
     
     
 </body>

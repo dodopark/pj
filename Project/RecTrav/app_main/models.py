@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -24,9 +25,13 @@ class Place(models.Model):
     p_subdistrict = models.CharField(max_length=60)
     p_postnumber = models.CharField(max_length=60)
     p_image = models.CharField(max_length=50, null=True, blank=True)
-    p_satisfaction = models.IntegerField(null=True)
-    p_access = models.IntegerField(null=True)
-    p_crownded = models.IntegerField(null=True)
-    p_landscape = models.IntegerField(null=True)
-    p_spacial =  models.IntegerField(null=True)
+    
 
+class Score(models.Model):    
+    satisfaction = models.IntegerField(null=True)
+    access = models.IntegerField(null=True)
+    crownded = models.IntegerField(null=True)
+    landscape = models.IntegerField(null=True)
+    spacial =  models.IntegerField(null=True)
+    u_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    p_id = models.ForeignKey(Place, on_delete=models.CASCADE, null=True, blank=True)
