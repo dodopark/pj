@@ -44,6 +44,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <div>
         
         {% load static %}
+        {% csrf_token %}
       
         <div><h1>
             <a href="{% url 'place' place.id %}">{{place.p_name}}</a></h1>
@@ -54,8 +55,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         
 
     </div>
-    <h4>
+    <h4>{% if user.is_authenticated %}
         <form method="post" action = "">
+            {% csrf_token %}
+            <div>
+                <h2>Your Score</h2>
+            </div>
             <div class="slidecontainer">
                 <h4>Satisfaction</h4>
                 <input type="range" min="1" max="5" value="1" class="slider" id="Range">
@@ -78,6 +83,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
             </div>
             <button type="submit">Enter</button>
         </form>
+        {% else %}
+        <div>
+            <h1> To review user must being logged in </h1>
+        </div>
+        {% endif %}
     </h4>
 <body>
   

@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from app_main.forms import RegisterModelForm
-from .models import Register,Place
+from .models import Register,Place,Score
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
@@ -74,12 +74,23 @@ def places(request):
     return render(request, 'app_main/places.html',context)   
 
 def place(request, place_id):
+    if request.method == 'POST':
+            test = Score()
+            test.satisfaction = 2 
+            test.access = 4 
+            test.crownded = 1 
+            test.landscape = 5 
+            test.spacial = 4
+            test.p_id_id = place_id
+            test.u_id_id = request.user.id
+            test.save() 
     one_place = None
     try:
         one_place = Place.objects.get(id=place_id)
     except:
         print('Error') 
-    context = { 'place': one_place}       
+    context = { 'place': one_place}
+        
     return render(request, 'app_main/place.html', context) 
 
 def rec(request):
