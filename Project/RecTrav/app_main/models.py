@@ -25,6 +25,8 @@ class Place(models.Model):
     p_subdistrict = models.CharField(max_length=60)
     p_postnumber = models.CharField(max_length=60)
     p_image = models.CharField(max_length=50, null=True, blank=True)
+    p_url = models.CharField(max_length=50, null=True, blank=True)
+    p_type = models.CharField(max_length=50, null=True, blank=True)
     
 
 class Score(models.Model):    

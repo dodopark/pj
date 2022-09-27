@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
@@ -18,17 +20,26 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <!-- Navbar -->
 <div class="w3-top">
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
-    <a href="{% url 'register' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Register</a>
-    <a href="{% url 'login' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Login</a>
-    <a href="{% url 'places' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Places</a>
-    <a href="{% url 'rec' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Reccommendation</a>
+    <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+      {% if user.is_authenticated %}
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>     
+      <a href="{% url 'places' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Places</a>
+      <a href="{% url 'rec' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Reccommendation</a>
+      <a href="/logout_user" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</a>
+      
+      {% else %} 
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+      <a href="{% url 'register' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Register</a>
+      <a href="{% url 'login' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Login</a>
+      <a href="{% url 'places' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Places</a>
+      <a href="{% url 'rec' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Reccommendation</a>
+      {% endif %}
+    </div>
     
+  
   </div>
-
-</div>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,9 +53,18 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         </h1>
     </div>
     <div>
-        <h1>
-            นี่คือสถานที่ 
-        </h1>
+        <div>
+            <h4>แยกประเภท</h4>
+            <div>
+              <a href="{% url 'cave' %}">ถ้ำ</a>
+              <a href="{% url 'market' %}">ตลาด</a>
+              <a href="{% url 'mount' %}">ภูเขา</a>
+              <a href="{% url 'river' %}">แม่น้ำ</a>
+              <a href="{% url 'sea' %}">ทะเล</a>
+              <a href="{% url 'island' %}">เกาะ</a>
+              <a href="{% url 'waterfall' %}">น้ำตก</a>
+            </div>
+          </div>
     </div>
 <body>
     {% load static %}
@@ -53,7 +73,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         <a href="{% url 'place' place.id %}">{{place.p_name}}</a></h2>
     </div>
     <div>
-        <img src="{% static place.p_image %}">
+        <img src="{% static place.p_image %}"width="300" 
+        height="300">
     </div>
     
     {% endfor %}

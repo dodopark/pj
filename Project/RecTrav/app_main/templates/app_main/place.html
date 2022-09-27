@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
@@ -18,17 +20,26 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <!-- Navbar -->
 <div class="w3-top">
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
-    <a href="{% url 'register' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Register</a>
-    <a href="{% url 'login' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Login</a>
-    <a href="{% url 'places' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Places</a>
-    <a href="{% url 'rec' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Reccommendation</a>
+    <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+      {% if user.is_authenticated %}
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>     
+      <a href="{% url 'places' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Places</a>
+      <a href="{% url 'rec' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Reccommendation</a>
+      <a href="/logout_user" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</a>
+      
+      {% else %} 
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+      <a href="{% url 'register' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Register</a>
+      <a href="{% url 'login' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Login</a>
+      <a href="{% url 'places' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Places</a>
+      <a href="{% url 'rec' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Reccommendation</a>
+      {% endif %}
+    </div>
     
+  
   </div>
-
-</div>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,17 +54,37 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     </div>
     <div>
         
-        {% load static %}
+     
         {% csrf_token %}
       
         <div><h1>
             <a href="{% url 'place' place.id %}">{{place.p_name}}</a></h1>
         </div>
         <div>
-            <img src="{% static place.p_image %}">
+            <img src="{% static place.p_image %}"width="300" 
+            height="300">
         </div>
-        
-
+        <div>
+            <h2>                              
+                คะแนนรีวิว {{ rating }}                              
+            </h2>
+        </div>
+        <div>
+            <div>
+                <h2>สรุปความเห็นจาก Google reviews</h2>
+            </div>
+            
+            <div>
+                <ul class="list-group">
+                    {% for item in review %}
+                        <li>{{ item }}</li> <br>
+                    {% endfor %}
+                </ul>
+            </div>            
+            <div>
+                <a href="{{ source }}">ที่มา</a>
+            </div>
+        </div>
     </div>
     <h4>{% if user.is_authenticated %}
         <form method="post" action = "">
@@ -63,23 +94,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
             </div>
             <div class="slidecontainer">
                 <h4>Satisfaction</h4>
-                <input type="range" min="1" max="5" value="1" class="slider" id="Range">
+                <input type="range" min="1" max="5" value="1" class="slider" id="Range" name="range1">
             </div>
             <div class="slidecontainer">
                 <h4>Access</h4>
-                <input type="range" min="1" max="5" value="1" class="slider" id="Range">
+                <input type="range" min="1" max="5" value="1" class="slider" id="Range" name="range2">
             </div>
             <div class="slidecontainer">
              <h4>Non-crownded</h4>
-                <input type="range" min="1" max="5" value="1" class="slider" id="Range">
+                <input type="range" min="1" max="5" value="1" class="slider" id="Range" name="range3">
             </div>
             <div class="slidecontainer">
                 <h4>Landscape</h4>
-                <input type="range" min="1" max="5" value="1" class="slider" id="Range">
+                <input type="range" min="1" max="5" value="1" class="slider" id="Range" name="range4">
             </div>
             <div class="slidecontainer">
              <h4>Accessibility for those with special need</h4>
-             <input type="range" min="1" max="5" value="1" class="slider" id="Range">
+             <input type="range" min="1" max="5" value="1" class="slider" id="Range" name="range5">
             </div>
             <button type="submit">Enter</button>
         </form>

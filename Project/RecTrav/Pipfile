@@ -6,6 +6,11 @@ name = "pypi"
 [packages]
 django = "*"
 mysql-connector-python = "*"
+beautifulsoup4 = "*"
+requests = "*"
+numpy = "*"
+pandas = "*"
+sklearn = "*"
 
 [dev-packages]
 bpython = "*"
