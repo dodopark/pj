@@ -21,7 +21,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <!-- Navbar -->
 <div class="w3-top">
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+  <div class="w3-bar w3-blue w3-card w3-left-align w3-large">
     {% if user.is_authenticated %}
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>   
@@ -43,7 +43,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </div>
 
 <!-- Header -->
-<header class="w3-container w3-red w3-center" style="padding:128px 16px">
+<header class="" style="padding:128px 16px;color:rgb(16, 175, 243);background-image:url('https://img.freepik.com/premium-photo/banner-summer-background-with-white-sand-seashell-starfish-beach_100655-31.jpg?w=2000');">
   <h1 class="w3-margin w3-jumbo">Welcome to Sightseeing Website</h1>
   
   <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top"><a href="{% url 'places' %}">เริ่มดูสถานที่</a></button>
@@ -52,18 +52,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <main class="container">
  {% if user.is_authenticated %}
- <h1> hi {{ user.username }} </h1>
+ <h1 style="text-align:center ;"> hi {{ user.username }} </h1>
  {% endif %}
-  <div>
+  <div style="display: flex;justify-content: space-around;margin-top : 15px">
     
     {% for place in places %}
     <div>
       <img src="{% static place.p_image %}"width="300" 
       height="300">
+      <h4><a href="{% url 'place' place.id %}">{{place.p_name}}</a></h4>
     </div>
-    <div><h2>
-        <a href="{% url 'place' place.id %}">{{place.p_name}}</a></h2>
-    </div>
+  
   
     {% endfor %}
   </div> 

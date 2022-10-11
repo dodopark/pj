@@ -23,7 +23,9 @@ def home(request):
     rand_num1 = random.choice(my_list)
     rand_num2 = random.choice(my_list)
     rand_num3 = random.choice(my_list)
-    all_place = Place.objects.filter(id__in=[rand_num1,  rand_num2, rand_num3])
+    rand_num4 = random.choice(my_list)
+    rand_num5 = random.choice(my_list)
+    all_place = Place.objects.filter(id__in=[rand_num1,  rand_num2, rand_num3, rand_num4, rand_num5])
     print(all_place)
     context = {'places':  all_place }
     return render(request, 'app_main/home.html',context)
@@ -111,10 +113,11 @@ def place(request, place_id):
 
 def rec(request):
     if request.user.is_authenticated:  
-        n_place = 20
+        all_place = Place.objects.values_list('id')
+        n_place = len(all_place)
         allusrs = User.objects.values_list('id')
         n_user = len(allusrs)
-        print(n_user)
+        
         first_k = 5
             # place_list = Score.objects.all()
         df = pd.DataFrame(list(Score.objects.all().values('satisfaction', 'u_id_id', 'p_id_id')))
@@ -122,6 +125,7 @@ def rec(request):
         curr_usr = request.user.id
     
         place_select = FindRecommendPlace(df,n_place,n_user,curr_usr,first_k)
+
         p1 = place_select[0]
         p2 = place_select[1]
         p3 = place_select[2]
@@ -213,10 +217,11 @@ def FindRecommendPlace(df,n_place,n_user,curr_usr,first_k):
     sim[curr_u,curr_u] = -1
     sim_u = np.argmax(sim[curr_u,:])
 
-    #print(usr_plc_matrix)
-    #print(sim)
+    print("usr_plc_matrix\n",usr_plc_matrix)
+    print("sim\n",sim)
+    print("sim_u\n",sim_u)
     place_recmd = np.flip(np.argsort(usr_plc_matrix[sim_u,:]))
     place_recmd = place_recmd + 1
     place_recmd = place_recmd.tolist()
-    
+    print("place_recmd\n",place_recmd)
     return place_recmd[:first_k]    

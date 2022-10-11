@@ -20,7 +20,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <!-- Navbar -->
 <div class="w3-top">
-    <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+    <div class="w3-bar w3-blue w3-card w3-left-align w3-large">
       {% if user.is_authenticated %}
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>     
@@ -52,18 +52,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
             .
         </h1>
     </div>
-    <div>
+    <div style="display: flex ;">
+    <div style="width:50% ;">
         
      
         {% csrf_token %}
-      
+        <div class="row">
+            <div class="column">
         <div><h1>
             <a href="{% url 'place' place.id %}">{{place.p_name}}</a></h1>
         </div>
         <div>
-            <img src="{% static place.p_image %}"width="300" 
-            height="300">
+            <img src="{% static place.p_image %}"width="600" 
+            height="600">
         </div>
+           </div>
+           <div class="column">
         <div>
             <h2>                              
                 คะแนนรีวิว {{ rating }}                              
@@ -86,31 +90,38 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
             </div>
         </div>
     </div>
-    <h4>{% if user.is_authenticated %}
+        </div>
+    </div>
+    <h2 style="width: 50% ;">{% if user.is_authenticated %}
         <form method="post" action = "">
             {% csrf_token %}
             <div>
-                <h2>Your Score</h2>
+                <h2>Your Score (1 to 5)</h2>
             </div>
             <div class="slidecontainer">
                 <h4>Satisfaction</h4>
                 <input type="range" min="1" max="5" value="1" class="slider" id="Range" name="range1">
+                <h5>2</h5>
             </div>
             <div class="slidecontainer">
                 <h4>Access</h4>
                 <input type="range" min="1" max="5" value="1" class="slider" id="Range" name="range2">
+                <h5>4</h5>
             </div>
             <div class="slidecontainer">
              <h4>Non-crownded</h4>
                 <input type="range" min="1" max="5" value="1" class="slider" id="Range" name="range3">
+                <h5>5</h5>
             </div>
             <div class="slidecontainer">
                 <h4>Landscape</h4>
                 <input type="range" min="1" max="5" value="1" class="slider" id="Range" name="range4">
+                <h5>5</h5>
             </div>
             <div class="slidecontainer">
              <h4>Accessibility for those with special need</h4>
              <input type="range" min="1" max="5" value="1" class="slider" id="Range" name="range5">
+             <h5>4</h5>
             </div>
             <button type="submit">Enter</button>
         </form>
@@ -119,10 +130,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
             <h1> To review user must being logged in </h1>
         </div>
         {% endif %}
-    </h4>
-<body>
-  
-    
-    
-</body>
+    </h2>
+</div>
 </html>
